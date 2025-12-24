@@ -236,12 +236,25 @@
 
 <style>
   .sidebar-card {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
     border-radius: 16px;
     padding: 16px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.04),
+      0 2px 4px -2px rgba(0, 0, 0, 0.04),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
+    transition: all 0.2s ease;
+  }
+
+  .sidebar-card:hover {
+    border-color: rgba(203, 213, 225, 0.9);
+    box-shadow:
+      0 8px 15px -3px rgba(0, 0, 0, 0.06),
+      0 4px 6px -4px rgba(0, 0, 0, 0.04),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
   }
 
   .condition-item {
@@ -253,16 +266,20 @@
   .condition-icon {
     width: 32px;
     height: 32px;
-    border-radius: 8px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
   }
 
   @media (prefers-color-scheme: dark) {
     .sidebar-card {
-      background: rgba(30, 41, 59, 0.85);
+      background: rgba(30, 41, 59, 0.95);
       border-color: rgba(51, 65, 85, 0.6);
+      box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
     }
     .sidebar-card h3 {
       color: #e2e8f0;
