@@ -40,12 +40,16 @@
   }
 
   body {
-    @apply bg-slate-50 text-slate-900 antialiased;
+    @apply text-slate-900 antialiased;
+    background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 25%, #7DD3FC 50%, #BAE6FD 75%, #E0F2FE 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
   }
 
   @media (prefers-color-scheme: dark) {
     body {
-      @apply bg-slate-900 text-slate-100;
+      @apply text-slate-100;
+      background: linear-gradient(135deg, #0C4A6E 0%, #075985 25%, #0369A1 50%, #075985 75%, #0C4A6E 100%);
     }
   }
 }
