@@ -94,18 +94,18 @@
 
 <div class="space-y-4">
   <!-- Header -->
-  <header class="sticky top-0 z-40 bg-white/70 backdrop-blur-xl border-b border-white/20">
+  <header class="sticky top-0 z-40 glass rounded-b-2xl lg:rounded-2xl lg:mt-4 shadow-sm">
     <div class="flex items-center justify-between p-4">
-      <h1 class="text-2xl font-display font-bold bg-gradient-to-r from-ocean-600 to-ocean-400 bg-clip-text text-transparent">
+      <h1 class="text-2xl font-display font-bold gradient-text text-premium">
         FishFlex
       </h1>
       <div class="flex items-center gap-1">
-        <a href="/leaderboard" class="p-2.5 hover:bg-white/50 rounded-xl transition-colors">
+        <a href="/leaderboard" class="p-2.5 hover:bg-white/50 rounded-xl transition-all hover:scale-105">
           <Icon name="trophy" size={22} class="text-slate-600" />
         </a>
-        <button class="p-2.5 hover:bg-white/50 rounded-xl transition-colors relative">
+        <button class="p-2.5 hover:bg-white/50 rounded-xl transition-all hover:scale-105 relative">
           <Icon name="bell" size={22} class="text-slate-600" />
-          <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-golden-500 rounded-full"></span>
+          <span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-golden-500 rounded-full ring-2 ring-white animate-pulse"></span>
         </button>
       </div>
     </div>
@@ -139,21 +139,31 @@
 
   <!-- Suggested Anglers -->
   <div class="px-4">
-    <div class="glass-card p-4 rounded-2xl">
-      <div class="flex items-center justify-between mb-3">
-        <h2 class="font-semibold text-slate-800">Suggested Anglers</h2>
-        <button class="text-sm text-ocean-600 font-medium">See All</button>
+    <div class="glass rounded-2xl p-4 shadow-sm hover-lift">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="font-semibold text-slate-800 text-premium">Suggested Anglers</h2>
+        <button class="text-sm text-ocean-600 font-medium hover:text-ocean-700 transition-colors">See All</button>
       </div>
       <div class="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
         {#each suggestedAnglers as angler}
-          <div class="flex-shrink-0 w-36 bg-white/60 rounded-xl p-3 text-center border border-white/50">
-            <img src={angler.avatar} alt={angler.display_name} class="w-14 h-14 rounded-full mx-auto mb-2 ring-2 ring-ocean-200" />
-            <p class="font-semibold text-sm truncate">{angler.display_name}</p>
+          <div class="flex-shrink-0 w-40 bg-white/80 rounded-2xl p-4 text-center border border-white/60 hover-lift">
+            <div class="relative inline-block">
+              <img src={angler.avatar} alt={angler.display_name} class="w-16 h-16 rounded-full mx-auto mb-2 ring-3 ring-ocean-100 shadow-md" />
+              <span class="absolute bottom-1 right-0 w-4 h-4 bg-emerald-500 rounded-full ring-2 ring-white"></span>
+            </div>
+            <p class="font-semibold text-sm truncate text-premium">{angler.display_name}</p>
             <p class="text-xs text-slate-500 truncate">@{angler.username}</p>
-            <p class="text-xs text-slate-400 mt-1">{angler.catches} catches • {angler.followers}</p>
+            <div class="flex items-center justify-center gap-2 mt-2 text-xs text-slate-400">
+              <span class="font-medium text-ocean-600">{angler.catches}</span> catches
+              <span class="text-slate-300">•</span>
+              <span class="font-medium">{angler.followers}</span>
+            </div>
             <button
               onclick={() => toggleFollow(angler.id)}
-              class="mt-2 w-full py-1.5 rounded-lg text-xs font-semibold transition-all {followedAnglers.has(angler.id) ? 'bg-slate-200 text-slate-600' : 'bg-ocean-600 text-white hover:bg-ocean-700'}"
+              class="mt-3 w-full py-2 rounded-xl text-xs font-semibold transition-all shadow-sm
+                {followedAnglers.has(angler.id)
+                  ? 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  : 'bg-gradient-to-r from-ocean-600 to-ocean-500 text-white hover:from-ocean-700 hover:to-ocean-600 shadow-ocean-500/20'}"
             >
               {followedAnglers.has(angler.id) ? 'Following' : 'Follow'}
             </button>
@@ -164,82 +174,93 @@
   </div>
 
   <!-- Feed -->
-  <div class="px-4 space-y-4 pb-4">
+  <div class="px-4 space-y-5 pb-4">
     {#each mockCatches as catchItem (catchItem.id)}
-      <article class="glass-card rounded-2xl overflow-hidden">
+      <article class="glass rounded-2xl overflow-hidden shadow-sm hover-lift">
         <!-- Header -->
-        <div class="flex items-center gap-3 p-3">
-          <img src={catchItem.user.avatar} alt={catchItem.user.display_name} class="w-10 h-10 rounded-full object-cover ring-2 ring-white" />
+        <div class="flex items-center gap-3 p-4">
+          <div class="relative">
+            <img src={catchItem.user.avatar} alt={catchItem.user.display_name} class="w-11 h-11 rounded-full object-cover ring-2 ring-white shadow-sm" />
+          </div>
           <div class="flex-1 min-w-0">
-            <p class="font-semibold text-sm">{catchItem.user.display_name}</p>
+            <p class="font-semibold text-sm text-premium">{catchItem.user.display_name}</p>
             <p class="text-xs text-slate-500 flex items-center gap-1">
-              <Icon name="location" size={12} />
+              <Icon name="location" size={12} class="text-ocean-500" />
               {catchItem.location_name} • {timeAgo(catchItem.created_at)}
             </p>
           </div>
-          <span class="px-2.5 py-1 bg-golden-100 text-golden-700 text-xs font-semibold rounded-full">
+          <span class="px-3 py-1.5 bg-gradient-to-r from-golden-100 to-golden-50 text-golden-700 text-xs font-semibold rounded-full shadow-sm">
             {catchItem.species}
           </span>
         </div>
 
         <!-- Image -->
-        <a href="/catch/{catchItem.id}">
+        <a href="/catch/{catchItem.id}" class="block relative group">
           <img
             src={catchItem.image_url}
             alt={catchItem.species}
-            class="w-full aspect-square object-cover"
+            class="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-[1.02]"
             loading="lazy"
           />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </a>
 
         <!-- Stats bar -->
-        <div class="flex items-center justify-center gap-8 py-2.5 bg-gradient-to-r from-ocean-50/80 to-golden-50/80 text-sm">
+        <div class="flex items-center justify-center gap-10 py-3 bg-gradient-to-r from-ocean-50/90 to-golden-50/90 text-sm border-y border-white/50">
           {#if catchItem.weight_lb}
-            <span class="flex items-center gap-1.5">
-              <Icon name="scale" size={16} class="text-golden-600" />
-              <span class="font-semibold">{catchItem.weight_lb}</span>
-              <span class="text-slate-500 text-xs">lb</span>
+            <span class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-golden-100 flex items-center justify-center">
+                <Icon name="scale" size={16} class="text-golden-600" />
+              </div>
+              <div class="text-left">
+                <p class="font-bold text-slate-800">{catchItem.weight_lb}</p>
+                <p class="text-[10px] text-slate-500 uppercase tracking-wide">pounds</p>
+              </div>
             </span>
           {/if}
           {#if catchItem.length_in}
-            <span class="flex items-center gap-1.5">
-              <Icon name="ruler" size={16} class="text-ocean-600" />
-              <span class="font-semibold">{catchItem.length_in}</span>
-              <span class="text-slate-500 text-xs">in</span>
+            <span class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-ocean-100 flex items-center justify-center">
+                <Icon name="ruler" size={16} class="text-ocean-600" />
+              </div>
+              <div class="text-left">
+                <p class="font-bold text-slate-800">{catchItem.length_in}</p>
+                <p class="text-[10px] text-slate-500 uppercase tracking-wide">inches</p>
+              </div>
             </span>
           {/if}
         </div>
 
         <!-- Actions -->
-        <div class="flex items-center gap-5 p-3">
+        <div class="flex items-center gap-5 p-4">
           <button
             onclick={() => toggleLike(catchItem.id)}
-            class="flex items-center gap-1.5 hover:scale-105 transition-transform"
+            class="flex items-center gap-2 hover:scale-105 transition-transform group"
           >
             <Icon
               name={likedCatches.has(catchItem.id) ? 'heart-filled' : 'heart'}
-              size={22}
-              class={likedCatches.has(catchItem.id) ? 'text-red-500' : 'text-slate-600'}
+              size={24}
+              class="{likedCatches.has(catchItem.id) ? 'text-red-500' : 'text-slate-500 group-hover:text-red-400'} transition-colors"
             />
-            <span class="text-sm font-medium">
+            <span class="text-sm font-semibold text-slate-700">
               {catchItem.likes_count + (likedCatches.has(catchItem.id) ? 1 : 0)}
             </span>
           </button>
-          <a href="/catch/{catchItem.id}" class="flex items-center gap-1.5 hover:scale-105 transition-transform">
-            <Icon name="comment" size={22} class="text-slate-600" />
-            <span class="text-sm font-medium">{catchItem.comments_count}</span>
+          <a href="/catch/{catchItem.id}" class="flex items-center gap-2 hover:scale-105 transition-transform group">
+            <Icon name="comment" size={24} class="text-slate-500 group-hover:text-ocean-500 transition-colors" />
+            <span class="text-sm font-semibold text-slate-700">{catchItem.comments_count}</span>
           </a>
-          <a href="/catch/{catchItem.id}" class="ml-auto flex items-center gap-1.5 text-ocean-600 text-sm font-medium hover:underline">
-            <Icon name="share" size={18} />
+          <a href="/catch/{catchItem.id}" class="ml-auto flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-ocean-600 to-ocean-500 text-white text-sm font-semibold rounded-xl hover:from-ocean-700 hover:to-ocean-600 transition-all shadow-sm shadow-ocean-500/20">
+            <Icon name="share" size={16} />
             Create Card
           </a>
         </div>
 
         <!-- Caption -->
-        <div class="px-3 pb-3">
-          <p class="text-sm">
-            <span class="font-semibold">@{catchItem.user.username}</span>
-            {' '}{catchItem.caption}
+        <div class="px-4 pb-4">
+          <p class="text-sm leading-relaxed">
+            <a href="/profile/{catchItem.user.username}" class="font-semibold text-ocean-600 hover:underline">@{catchItem.user.username}</a>
+            <span class="text-slate-700"> {catchItem.caption}</span>
           </p>
         </div>
       </article>
@@ -248,20 +269,9 @@
 </div>
 
 <style>
-  .glass-card {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-  }
-
   @media (prefers-color-scheme: dark) {
-    .glass-card {
-      background: rgba(30, 41, 59, 0.7);
-      border-color: rgba(51, 65, 85, 0.5);
-    }
     header {
-      background-color: rgba(15, 23, 42, 0.7);
+      background-color: rgba(15, 23, 42, 0.8);
       border-color: rgba(51, 65, 85, 0.5);
     }
   }
