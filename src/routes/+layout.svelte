@@ -1,5 +1,6 @@
 <script>
 	import '../app.css';
+	import BottomNav from '$lib/components/BottomNav.svelte';
 
 	let { children } = $props();
 </script>
@@ -9,6 +10,13 @@
 	<title>FishFlex</title>
 </svelte:head>
 
-<div class="min-h-screen flex flex-col">
-	{@render children()}
+<div class="min-h-screen flex flex-col pb-20 md:pb-0">
+	<main class="flex-1 max-w-2xl mx-auto w-full">
+		{@render children()}
+	</main>
+
+	<!-- Mobile bottom nav -->
+	<div class="md:hidden">
+		<BottomNav />
+	</div>
 </div>
