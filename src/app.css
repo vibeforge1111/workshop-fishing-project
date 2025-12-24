@@ -1,0 +1,189 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap');
+
+/* Custom theme colors */
+@theme {
+  /* Ocean Blue - Primary */
+  --color-ocean-50: #EFF6FF;
+  --color-ocean-100: #DBEAFE;
+  --color-ocean-200: #BFDBFE;
+  --color-ocean-300: #93C5FD;
+  --color-ocean-400: #60A5FA;
+  --color-ocean-500: #3B82F6;
+  --color-ocean-600: #2563EB;
+  --color-ocean-700: #1D4ED8;
+  --color-ocean-800: #1E40AF;
+  --color-ocean-900: #1E3A8A;
+  --color-ocean-950: #172554;
+
+  /* Golden Yellow - Accent/Achievements */
+  --color-golden-50: #FFFBEB;
+  --color-golden-100: #FEF3C7;
+  --color-golden-200: #FDE68A;
+  --color-golden-300: #FCD34D;
+  --color-golden-400: #FBBF24;
+  --color-golden-500: #F59E0B;
+  --color-golden-600: #D97706;
+  --color-golden-700: #B45309;
+  --color-golden-800: #92400E;
+  --color-golden-900: #78350F;
+  --color-golden-950: #451A03;
+
+  /* Font families */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Outfit', system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      @apply bg-slate-900 text-slate-100;
+    }
+  }
+}
+
+@layer components {
+  /* Primary button - Ocean blue */
+  .btn-primary {
+    @apply px-6 py-3 bg-ocean-600 text-white font-semibold rounded-xl;
+    @apply hover:bg-ocean-700 active:scale-95 transition-all duration-150;
+    @apply shadow-lg shadow-ocean-500/25;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100;
+  }
+
+  /* Secondary button */
+  .btn-secondary {
+    @apply px-6 py-3 bg-slate-200 text-slate-800 font-semibold rounded-xl;
+    @apply hover:bg-slate-300 active:scale-95 transition-all duration-150;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .btn-secondary {
+      @apply bg-slate-700 text-slate-200 hover:bg-slate-600;
+    }
+  }
+
+  /* Golden accent button - for achievements/CTAs */
+  .btn-golden {
+    @apply px-6 py-3 bg-gradient-to-r from-golden-500 to-golden-400 text-slate-900 font-bold rounded-xl;
+    @apply hover:from-golden-400 hover:to-golden-300 active:scale-95 transition-all duration-150;
+    @apply shadow-lg shadow-golden-500/30;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100;
+  }
+
+  /* Card component */
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-slate-200;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .card {
+      @apply bg-slate-800 border-slate-700;
+    }
+  }
+
+  /* Input field */
+  .input {
+    @apply w-full px-4 py-3 bg-slate-100 border border-slate-200 rounded-xl;
+    @apply focus:outline-none focus:ring-2 focus:ring-ocean-500 focus:border-transparent;
+    @apply transition-all duration-150 placeholder:text-slate-400;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .input {
+      @apply bg-slate-800 border-slate-700 text-white;
+    }
+  }
+
+  /* Badge/Chip */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 text-sm font-medium rounded-full;
+  }
+
+  .badge-golden {
+    @apply bg-golden-100 text-golden-800;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .badge-golden {
+      @apply bg-golden-900/30 text-golden-400;
+    }
+  }
+
+  .badge-ocean {
+    @apply bg-ocean-100 text-ocean-800;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .badge-ocean {
+      @apply bg-ocean-900/30 text-ocean-400;
+    }
+  }
+
+  /* Gamification: XP/Level indicator */
+  .xp-bar {
+    @apply h-2 bg-slate-200 rounded-full overflow-hidden;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .xp-bar {
+      @apply bg-slate-700;
+    }
+  }
+
+  .xp-fill {
+    @apply h-full bg-gradient-to-r from-golden-500 to-golden-400 rounded-full;
+    @apply transition-all duration-500 ease-out;
+  }
+
+  /* Achievement unlock animation */
+  .achievement-pop {
+    animation: achievementPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  @keyframes achievementPop {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* Skeleton loading */
+  .skeleton {
+    @apply bg-slate-200 animate-pulse rounded;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .skeleton {
+      @apply bg-slate-700;
+    }
+  }
+}
+
+/* Mobile-first utilities */
+@layer utilities {
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
