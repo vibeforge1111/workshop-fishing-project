@@ -135,7 +135,7 @@
         {#if currentStory.image}
           <img
             src={currentStory.image}
-            alt="Story"
+            alt={currentStory.caption || currentStory.username || 'Story'}
             class="w-full h-full object-cover"
           />
         {:else if currentStory.catch}
